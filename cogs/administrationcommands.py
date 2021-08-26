@@ -1,6 +1,5 @@
 from operator import is_not
 from discord import Embed, Member, User, utils
-
 from discord.ext import commands
 import asyncio, discord
 from discord.ext.commands import bot
@@ -15,8 +14,6 @@ import lib as mod
 from typing import Dict, List, Tuple, Union
 
 
-
-
 red = 0xff0000
 green = 0x34eb40
 
@@ -29,7 +26,6 @@ __DAYS = __HOURS * 24
 
 class Command:
     __arguments: Dict[str, Union[str, int]]
-
 
     def get_value_of(self, name: str) -> Union[None, str, int]:
         if name in self.__arguments:
@@ -111,10 +107,6 @@ class admin(commands.Cog):
             resultismuted = cursor.fetchone()
             print(resultismuted)
             
-            
-                
-
-            
             embed = Embed(description=f"**{member.mention} has been muted indefinitely.**", color=red) #embed of the information
             embed.timestamp = ctx.message.created_at
             await ctx.send(embed=embed)
@@ -127,17 +119,6 @@ class admin(commands.Cog):
         cursor.close()
         db.close()
    
-    
-   
-
-
-      
-      
-  
-
-
-  
-       
     @commands.command(name="unban", aliases=["ub", "bebis4u"])
     async def _Unban(self, ctx, *, user: User):
         member = Member
@@ -183,9 +164,7 @@ class admin(commands.Cog):
         else:
             embed = Embed(title="You do not have the required permissions to do that!", colour=red)
             await ctx.send(embed=embed, delete_after=5)
-    
-
-    
+  
     @commands.command(name="kick", aliases=["k", "yeet"])
     async def kick(self, ctx, member: Member, *, reason=None):
         guild = ctx.guild
@@ -202,25 +181,16 @@ class admin(commands.Cog):
                 await member.send(embed=embed)
             except:
                 pass
-            
-
-        
-            
-
             # Not needed
             #embed = Embed(title = (f"You have been kicked from: {ctx.guild.name}.\n**Reason:** {reason}."), colour=red)
             #await member.send(embed=embed)
       
-            
-
     @commands.command(name="ban", aliases=["b", "nobebis4u", "daban"])
     async def ban(self, ctx, member: Member, *,time=None, reason=None):
         guild = ctx.guild
         user = User
 
         if ctx.author.guild_permissions.ban_members or ctx.author.guild_permissions.administrator and ctx.author.guild_permissions!=ctx.member.guild_permissions:
-
-        
             if time==None: 
                 await member.ban(reason=reason) 
                 embed = Embed(title="Banned", description=f"{member.mention} has been banned from the server indefinitely.", colour=red)
@@ -233,10 +203,6 @@ class admin(commands.Cog):
                     await member.send(embed=embed)
                 except:
                     pass
-        
-
-
-            
             else:     ## IF TIME IS WRITTEN
                 await member.ban(reason=reason)
                 embed = Embed(title="Banned", description=f"{member.mention} has been banned from the server.", colour=red)
@@ -276,25 +242,6 @@ _TYPES: List[Tuple[str, str]] = [
 _RATIOS: List[Tuple[str, int]] = [
     ("seconds", 1), ("minutes", __MINUTES), ("hours", __HOURS), ("days", __DAYS)]
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        
 
 def setup(bot):
     bot.add_cog(admin(bot)) 
